@@ -8,8 +8,7 @@ pipeline {
     stage('Generate PEM file') {
       steps {
         dir ("ec2_lifecycle") {
-          sh 'ls -l'
-          sh 'echo $AWS_SECRET_ACCESS_KEY'
+          sh 'ansible-playbook ec2_provision.yaml'
         }
       }
     }
