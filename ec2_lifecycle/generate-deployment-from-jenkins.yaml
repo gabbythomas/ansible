@@ -6,6 +6,6 @@
   - name: Queue build
     uri:
       url: http://gabby:gabby@3.137.207.150:8080/job/build-sample-spring-maven-app/build?token=11d479943da58b30913faf0dcb171d8432
-      method: POST
+      method: HEAD
       force_basic_auth: yes
       status_code: 201
