@@ -19,7 +19,12 @@ pipeline {
           ]) {
             ansiblePlaybook([
               playbook: 'generate-deployment-from-jenkins.yaml',
-              extraVars: [JobName: 'build-sample-spring-maven-app', HostName: '${JENKINS_MASTER_IP}']
+              extraVars: [
+                JobName: 'build-sample-spring-maven-app'
+                HostName: '${JENKINS_MASTER_IP}'
+                BuildNumber: '${BUILD_NUMBER}'
+                ArtifactName: 'demo-0.0.1-SNAPSHOT.war'
+              ]
             ])
           }
         }
