@@ -1,7 +1,7 @@
 pipeline {
   agent any
   environment {
-    JENKINS_MASTER_IP     = '3.137.207.150'
+    JENKINS_MASTER_IP     = 'localhost'
     AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
     EC2_SECURITY_GROUP_ID = credentials('EC2_SECURITY_GROUP_ID')
