@@ -8,7 +8,7 @@
   - name: Queue build
     uri:
       url: "http://{{ HostName }}:8080/job/{{ JobName }}/build?token={{ TokenName }}"
-      method: GET
+      method: POST
       user: "{{ Uname }}"
       password: "{{ Pass }}"
       force_basic_auth: yes
