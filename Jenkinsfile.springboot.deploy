@@ -16,7 +16,10 @@ pipeline {
             usernamePassword(credentialsId: 'jenkins-login', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS'),
             string(credentialsId: 'jenkins-ansible-token', variable: 'JENKINS_ANSIBLE_TOKEN')
           ]) {
-            sh 'ansible-playbook generate-deployment-from-jenkins.yaml --extra-vars “JobName=deploy-sample-spring-maven-app”'
+            ansible-playbook([
+              playbook: 'generate-deployment-from-jenkins.yaml',
+              extraVars: [JobName: 'deploy-sample-spring-maven-app']
+            ])
           }
         }
       }
@@ -24,7 +27,9 @@ pipeline {
     stage('Provision EC2 Instance(s)') {
       steps {
         dir ("ec2_lifecycle") {
-          sh 'ansible-playbook ec2_provision.yaml'
+          ansible-playbook([
+              playbook: 'ec2_provision.yaml'
+          ])
         }
       }
     }
