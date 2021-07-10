@@ -14,7 +14,7 @@ pipeline {
         dir ("ec2_lifecycle") {
           withCredentials([
             usernamePassword(credentialsId: 'jenkins-login', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS'),
-            string(credentialsId: 'jenkins-ansible-token', variable: 'JENKINS_ANSIBLE_TOKEN')
+            string(credentialsId: 'jenkins-api-token', variable: 'JENKINS_ANSIBLE_TOKEN')
           ]) {
             ansiblePlaybook([
               playbook: 'generate-deployment-from-jenkins.yaml',
