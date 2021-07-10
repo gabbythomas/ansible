@@ -12,7 +12,7 @@ pipeline {
             string(credentialsId: 'jenkins-api-token', variable: 'JENKINS_API_TOKEN')
           ]) {
             ansiblePlaybook([
-              playbook: 'generate-deployment-from-jenkins.yaml',
+              playbook: 'generate-delivery.yaml',
               extraVars: [
                 JobName: 'build-sample-spring-maven-app',
                 HostName: '${JENKINS_MASTER_HOSTNAME}'
