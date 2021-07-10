@@ -1,6 +1,7 @@
 pipeline {
   agent any
   environment {
+    JENKINS_MASTER_IP     = 3.137.207.150
     AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
     EC2_SECURITY_GROUP_ID = credentials('EC2_SECURITY_GROUP_ID')
@@ -14,11 +15,11 @@ pipeline {
         dir ("ec2_lifecycle") {
           withCredentials([
             usernamePassword(credentialsId: 'jenkins-login', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS'),
-            string(credentialsId: 'jenkins-api-token', variable: 'JENKINS_ANSIBLE_TOKEN')
+            string(credentialsId: 'jenkins-api-token', variable: 'JENKINS_API_TOKEN')
           ]) {
             ansiblePlaybook([
               playbook: 'generate-deployment-from-jenkins.yaml',
-              extraVars: [JobName: 'deploy-sample-spring-maven-app']
+              extraVars: [JobName: 'deploy-sample-spring-maven-app', HostName: ${JENKINS_MASTER_IP}]
             ])
           }
         }
