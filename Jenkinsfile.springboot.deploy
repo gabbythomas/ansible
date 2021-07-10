@@ -16,7 +16,7 @@ pipeline {
             usernamePassword(credentialsId: 'jenkins-login', usernameVariable: 'JENKINS_USER', passwordVariable: 'JENKINS_PASS'),
             string(credentialsId: 'jenkins-ansible-token', variable: 'JENKINS_ANSIBLE_TOKEN')
           ]) {
-            sh 'ansible-playbook generate-deployment-from-jenkins.yaml –-extra-vars “JobName=Deploy\ sample-spring-maven-app”'
+            sh 'ansible-playbook generate-deployment-from-jenkins.yaml –-extra-vars “JobName=Deploy sample-spring-maven-app”'
           }
         }
       }
