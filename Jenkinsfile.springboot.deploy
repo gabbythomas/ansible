@@ -19,7 +19,7 @@ pipeline {
           ]) {
             ansiblePlaybook([
               playbook: 'generate-deployment-from-jenkins.yaml',
-              extraVars: [JobName: 'deploy-sample-spring-maven-app', HostName: ${JENKINS_MASTER_IP}]
+              extraVars: [JobName: 'deploy-sample-spring-maven-app', HostName: '${JENKINS_MASTER_IP}']
             ])
           }
         }
