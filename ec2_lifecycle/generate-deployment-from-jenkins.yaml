@@ -5,7 +5,7 @@
   tasks:
   - name: Queue build
     uri:
-      url: http://{{ HostName }}:8080/job/{{ JobName }}/build?token={{ TokenName }}
+      url: http://{{ HostName }}:8080/job/{{ JobName }}/build?token=11d479943da58b30913faf0dcb171d8432
       url_username: "{{ lookup('env', 'JENKINS_USER') }}"
       url_password: "{{ lookup('env', 'JENKINS_PASS') }}"
       method: POST
