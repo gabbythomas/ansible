@@ -9,7 +9,7 @@
     uri:
       url: "http://{{ HostName }}:8080/job/{{ JobName }}/build?token={{ TokenName }}"
       method: POST
-      user: "{{ Uname }}"
-      password: "{{ Pass }}"
+      url_username: "{{ Uname }}"
+      url_password: "{{ Pass }}"
       force_basic_auth: yes
       status_code: 201
