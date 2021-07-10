@@ -8,6 +8,6 @@
       url: http://{{ HostName }}/job/{{ JobName }}/build?token={{ TokenName }}
       user: "{{ lookup('env', 'JENKINS_USER') }}"
       password: "{{ lookup('env', 'JENKINS_PASS') }}"
-      method: GET
+      method: POST
       force_basic_auth: yes
       status_code: 201
