@@ -1,10 +1,15 @@
 pipeline {
   agent any
+  environment {
+    AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+  }
   stages {
     stage('Generate PEM file') {
       steps {
-        withCredentials([sshUserPrivateKey(credentialsId: 'ansible', keyFileVariable: 'AWS_EC2_PEM_KEYPATH')]){
-            sh 'echo $AWS_EC2_PEM_KEYPATH'
+        dir ("ec2_lifecycle") {
+          sh 'ls -l'
+          sh 'echo $AWS_SECRET_ACCESS_KEY'
         }
       }
     }
