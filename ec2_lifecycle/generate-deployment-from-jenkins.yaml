@@ -2,12 +2,12 @@
   hosts: localhost
   vars:
     TokenName: "{{ lookup('env', 'JENKINS_API_TOKEN') }}"
-    UserName: "{{ lookup('env', 'JENKINS_USER') }}"
-    Password: "{{ lookup('env', 'JENKINS_PASS') }}"
   tasks:
   - name: Queue build
     uri:
-      url: http://{{ UserName}}:{{ Password }}@{{ HostName }}:8080/job/{{ JobName }}/build?token={{ TokenName }}
+      url: http://{{ HostName }}:8080/job/{{ JobName }}/build?token={{ TokenName }}
+      url_username: "{{ lookup('env', 'JENKINS_USER') }}"
+      url_password: "{{ lookup('env', 'JENKINS_PASS') }}"
       method: POST
       force_basic_auth: yes
       status_code: 201
