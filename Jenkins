@@ -1,0 +1,27 @@
+pipeline {
+  agent any
+  environment {
+    AWS_ACCESS_KEY_ID       = credentials('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY   = credentials('AWS_SECRET_ACCESS_KEY')
+    EC2_SECURITY_GROUP_ID   = credentials('EC2_SECURITY_GROUP_ID')
+    EC2_SUBNET_ID           = credentials('EC2_SUBNET_ID')
+    EC2_REGION_ID           = credentials('EC2_REGION_ID')
+    EC2_AMI_ID              = credentials('EC2_AMI_ID')
+  }
+  stages {
+    stage('Provision EC2 Instance(s)') {
+      steps {
+        dir ("ec2_lifecycle") {
+          ansiblePlaybook([
+              playbook: 'ec2_provision.yaml'
+          ])
+        }
+      }
+    }
+  }
+  post {
+    always {
+      cleanWs()
+    }
+  }
+}
