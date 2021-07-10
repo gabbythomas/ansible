@@ -1,0 +1,17 @@
+pipeline {
+  agent any
+  stages {
+    stage('Generate PEM file') {
+      steps {
+        withCredentials([sshUserPrivateKey(credentialsId: 'ansible', keyFileVariable: 'AWS_EC2_PEM_KEYPATH')]){
+            sh 'echo $AWS_EC2_PEM_KEYPATH'
+        }
+      }
+    }
+  }
+//  post {
+//    always {
+     // cleanWs()
+//    }
+//  }
+}
