@@ -16,15 +16,7 @@
           "tag:Role": "{{ ec2_tag_Role }}"
         region: "{{ ec2_region }}"
       register: instances
-    - name: display instances
+    - name: Display instances
       run_once: true
       debug:
         var: instances
-    - name: Remove registered instances
-      run_once: true
-      ec2:
-        state: absent
-        wait: true
-        instance_ids: "{{instances|json_query('instances[*].instance_id')}}"
-        region: "{{ ec2_region }}"
-      when: instances
