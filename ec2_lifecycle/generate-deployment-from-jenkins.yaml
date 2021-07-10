@@ -1,11 +1,15 @@
 - name: trigger
   hosts: localhost
   vars:
+    Uname: "{{ lookup('env', 'JENKINS_USER') }}"
+    Pass: "{{ lookup('env', 'JENKINS_PASS') }}"
     TokenName: "{{ lookup('env', 'JENKINS_API_TOKEN') }}"
   tasks:
   - name: Queue build
     uri:
-      url: http://gabby:gabby@3.137.207.150:8080/job/build-sample-spring-maven-app/build?token=11d479943da58b30913faf0dcb171d8432
+      url: "http://{{ HostName }}:8080/job/{{ JobName }}/build?token={{ TokenName }}"
       method: HEAD
+      url_username: "{{ Uname }}"
+      url_password: "{{ Pass }}"
       force_basic_auth: yes
       status_code: 201
