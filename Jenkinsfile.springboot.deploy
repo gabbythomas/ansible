@@ -6,10 +6,17 @@ pipeline {
     EC2_SECURITY_GROUP_ID = credentials('EC2_SECURITY_GROUP_ID')
     EC2_SUBNET_ID         = credentials('EC2_SUBNET_ID')
     EC2_REGION_ID         = credentials('EC2_REGION_ID')
-    EC2_AMI_ID         = credentials('EC2_AMI_ID')
+    EC2_AMI_ID            = credentials('EC2_AMI_ID')
   }
   stages {
-    stage('Generate PEM file') {
+    stage('Generate Deployment') {
+      steps {
+        dir ("ec2_lifecycle") {
+          sh 'ansible-playbook generate-deployment-from-jenkins.yaml'
+        }
+      }
+    }
+    stage('Provision EC2 Instance(s)') {
       steps {
         dir ("ec2_lifecycle") {
           sh 'ansible-playbook ec2_provision.yaml'
@@ -17,9 +24,9 @@ pipeline {
       }
     }
   }
-//  post {
-//    always {
-     // cleanWs()
-//    }
-//  }
+  post {
+    always {
+      cleanWs()
+    }
+  }
 }
