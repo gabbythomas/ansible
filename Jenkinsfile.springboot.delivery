@@ -1,13 +1,13 @@
 pipeline {
   agent any
   environment {
-    JENKINS_MASTER_IP     = 'localhost'
-    AWS_ACCESS_KEY_ID     = credentials('AWS_ACCESS_KEY_ID')
-    AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
-    EC2_SECURITY_GROUP_ID = credentials('EC2_SECURITY_GROUP_ID')
-    EC2_SUBNET_ID         = credentials('EC2_SUBNET_ID')
-    EC2_REGION_ID         = credentials('EC2_REGION_ID')
-    EC2_AMI_ID            = credentials('EC2_AMI_ID')
+    JENKINS_MASTER_HOSTNAME = 'localhost'
+    AWS_ACCESS_KEY_ID       = credentials('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY   = credentials('AWS_SECRET_ACCESS_KEY')
+    EC2_SECURITY_GROUP_ID   = credentials('EC2_SECURITY_GROUP_ID')
+    EC2_SUBNET_ID           = credentials('EC2_SUBNET_ID')
+    EC2_REGION_ID           = credentials('EC2_REGION_ID')
+    EC2_AMI_ID              = credentials('EC2_AMI_ID')
   }
   stages {
     stage('Generate Deployment') {
@@ -21,9 +21,7 @@ pipeline {
               playbook: 'generate-deployment-from-jenkins.yaml',
               extraVars: [
                 JobName: 'build-sample-spring-maven-app',
-                HostName: '${JENKINS_MASTER_IP}',
-                BuildNumber: '${BUILD_NUMBER}',
-                ArtifactName: 'demo-0.0.1-SNAPSHOT.war'
+                HostName: '${JENKINS_MASTER_HOSTNAME}'
               ]
             ])
           }
