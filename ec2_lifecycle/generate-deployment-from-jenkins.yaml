@@ -13,10 +13,3 @@
       url_password: "{{ Pass }}"
       force_basic_auth: yes
       status_code: 201
-  - name: Check for build artifact
-    command: "curl --silent http://{{ HostName }}/job/{{ JobName }}/{{ BuildNumber }}/artifact/target/{{ ArtifactName }}"
-    register: result
-    until: result.stdout.find("200 OK") != -1
-    retries: 10
-    delay: 30
-    changed_when: false
