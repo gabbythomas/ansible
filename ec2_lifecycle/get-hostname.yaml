@@ -4,6 +4,7 @@
   connection: ssh
   remote_user: ubuntu
   tasks:
-    - name: Get hostname
-      command: echo {{ ansible_hostname.split('-')[1] }}
-      register: hostname
+    - name: Install web container dependencies
+      apt:
+        name: tomcat9
+        update_cache: yes
