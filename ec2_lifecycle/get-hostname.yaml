@@ -16,9 +16,9 @@
         update_cache: yes
         state: present
     - name: Clean previous deployment
-        file:
-          path: "{{ DeploymentPath }}"
-          state: empty
+      file:
+        path: "{{ DeploymentPath }}"
+        state: empty
     - name: Download latest WAR delivery
       uri:
         url: "http://{{ HostName }}:8080/job/{{ JobName }}/lastSuccessfulBuild/artifact/{{ ArtifactPath }}"
