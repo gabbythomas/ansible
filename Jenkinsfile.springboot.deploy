@@ -3,6 +3,7 @@ pipeline {
   environment {
     AWS_ACCESS_KEY_ID       = credentials('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY   = credentials('AWS_SECRET_ACCESS_KEY')
+    AWS_PEM_KEY_FILE        = credentials('AWS_PEM_KEY_FILE')
     EC2_SECURITY_GROUP_ID   = credentials('EC2_SECURITY_GROUP_ID')
     EC2_SUBNET_ID           = credentials('EC2_SUBNET_ID')
     EC2_REGION_ID           = credentials('EC2_REGION_ID')
@@ -15,6 +16,8 @@ pipeline {
           ansiblePlaybook([
               playbook: 'ec2_provision.yaml'
           ])
+          
+          sh 'ansible-playbook -i inventory/inventory_aws_ec2.yaml --limit tag_type_staging --key-file=${AWS_PEM_KEY_FILE} get-hostname.yaml'
         }
       }
     }
