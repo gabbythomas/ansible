@@ -28,7 +28,7 @@ pipeline {
             string(credentialsId: 'jenkins-api-token', variable: 'JENKINS_API_TOKEN')
           ]) {
             ansiblePlaybook([
-              playbook: 'get-hostname.yaml',
+              playbook: 'deploy-springboot-app.yaml',
               inventory: 'inventory/inventory_aws_ec2.yaml',
               limit: 'tag_role_staging',
               extras: '--key-file=${AWS_PEM_KEY_FILE}',
