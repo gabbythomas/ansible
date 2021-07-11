@@ -25,13 +25,13 @@
     - name: Download latest WAR delivery
       uri:
         url: "http://{{ HostName }}:8080/job/{{ JobName }}/lastSuccessfulBuild/artifact/{{ ArtifactPath }}"
-        dest: "{{ DeploymentPath }}"
+        dest: "{{ DeploymentPath }}/ROOT.war"
         url_username: "{{ Uname }}"
         url_password: "{{ Pass }}"
         force_basic_auth: yes
         status_code: 200
         notify:
-          - restart "{{ TomcatServer }}"
+          - Restart "{{ TomcatServer }}"
   handlers:
     - name: Restart "{{ TomcatServer }}"
       service:
