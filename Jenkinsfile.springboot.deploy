@@ -27,7 +27,7 @@ pipeline {
               playbook: 'get-hostname.yaml',
               inventory: 'inventory/inventory_aws_ec2.yaml',
               limit: 'tag_role_staging',
-              additionalParameters: '--key-file=${AWS_PEM_KEY_FILE}',
+              extras: '--key-file=${AWS_PEM_KEY_FILE}',
               extraVars: [
                 HostName: '${JENKINS_MASTER_HOSTNAME}',
                 JobName: 'build-sample-spring-maven-app',
