@@ -17,12 +17,15 @@
         state: present
     - name: Clean previous deployment
       file:
-        path: "{{ DeploymentPath }}"
-        state: empty
+        path: "{{ item }}"
+        state: absent
+        with_items:
+          - "{{ DeploymentPath }}/ROOT.war"
+          - "{{ DeploymentPath }}/ROOT"
     - name: Download latest WAR delivery
       uri:
         url: "http://{{ HostName }}:8080/job/{{ JobName }}/lastSuccessfulBuild/artifact/{{ ArtifactPath }}"
-        dest: "{{ DeploymentPath }}"
+        dest: "{{ DeploymentPath }}/ROOT.war"
         url_username: "{{ Uname }}"
         url_password: "{{ Pass }}"
         force_basic_auth: yes
