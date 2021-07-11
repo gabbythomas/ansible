@@ -19,9 +19,9 @@
       file:
         path: "{{ item }}"
         state: absent
-        with_items:
-          - "{{ DeploymentPath }}/ROOT.war"
-          - "{{ DeploymentPath }}/ROOT"
+      with_items:
+        - "{{ DeploymentPath }}/ROOT.war"
+        - "{{ DeploymentPath }}/ROOT"
     - name: Download latest WAR delivery
       uri:
         url: "http://{{ HostName }}:8080/job/{{ JobName }}/lastSuccessfulBuild/artifact/{{ ArtifactPath }}"
