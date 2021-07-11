@@ -7,26 +7,26 @@
     Uname: "{{ lookup('env', 'JENKINS_USER') }}"
     Pass: "{{ lookup('env', 'JENKINS_PASS') }}"
     TokenName: "{{ lookup('env', 'JENKINS_API_TOKEN') }}"
-    TomcatServer: tomcat9
-    DeploymentPath: /var/lib/{{ TomcatServer }}/webapps
+    TomcatServer: "tomcat9"
+    DeploymentPath: "/var/lib/{{ TomcatServer }}/webapps"
   tasks:
     - name: Install web container dependencies
       apt:
-        name: {{ TomcatServer }}
+        name: "{{ TomcatServer }}"
         update_cache: yes
         state: present
     - name: Clean previous deployment
-        file: path={{ DeploymentPath }} state=empty
+        file: path="{{ DeploymentPath }}" state=empty
     - name: Download latest WAR delivery
       uri:
-        url: http://{{ HostName }}:8080/job/{{ JobName }}/lastSuccessfulBuild/artifact/{{ ArtifactPath }}
+        url: "http://{{ HostName }}:8080/job/{{ JobName }}/lastSuccessfulBuild/artifact/{{ ArtifactPath }}"
         dest: "{{ DeploymentPath }}"
         url_username: "{{ Uname }}"
         url_password: "{{ Pass }}"
         force_basic_auth: yes
         status_code: 200
         notify:
-        - restart {{ TomcatServer }}
+        - restart "{{ TomcatServer }}"
     handlers:
-    - name: Restart {{ TomcatServer }}
-      service: name={{ TomcatServer }} state=restarted
+    - name: Restart "{{ TomcatServer }}"
+      service: name="{{ TomcatServer }}" state=restarted
