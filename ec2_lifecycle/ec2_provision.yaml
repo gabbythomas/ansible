@@ -6,7 +6,7 @@
   gather_facts: false
   user: root
   pre_tasks:
-    - include_vars: variables.yml
+    - include_vars: variables.yaml
   tasks:
     - name: Provision {{ ec2_count }} instances with tag {{ ec2_tag_Role }}
       local_action:
