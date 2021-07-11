@@ -30,8 +30,8 @@
         url_password: "{{ Pass }}"
         force_basic_auth: yes
         status_code: 200
-        notify:
-          - Restart "{{ TomcatServer }}"
+      notify:
+        - Restart "{{ TomcatServer }}"
   handlers:
     - name: Restart "{{ TomcatServer }}"
       service:
