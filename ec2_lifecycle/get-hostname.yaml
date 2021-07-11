@@ -25,7 +25,7 @@
     - name: Download latest WAR delivery
       uri:
         url: "http://{{ HostName }}:8080/job/{{ JobName }}/lastSuccessfulBuild/artifact/{{ ArtifactPath }}"
-        dest: "{{ DeploymentPath }}/ROOT.war"
+        dest: "{{ DeploymentPath }}"
         url_username: "{{ Uname }}"
         url_password: "{{ Pass }}"
         force_basic_auth: yes
