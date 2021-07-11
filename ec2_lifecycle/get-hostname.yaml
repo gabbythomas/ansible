@@ -3,6 +3,9 @@
   become: true
   connection: ssh
   remote_user: ubuntu
+  vars:
+    Uname: "{{ lookup('env', 'JENKINS_USER') }}"
+    Pass: "{{ lookup('env', 'JENKINS_PASS') }}"
   tasks:
     - name: Install web container dependencies
       apt:
@@ -12,4 +15,8 @@
       uri:
         url: http://{{ HostName }}:8080/job/{{ JobName }}/lastSuccessfulBuild/artifact/{{ ArtifactPath }}
         dest: /tmp
+        url_username: "{{ Uname }}"
+        url_password: "{{ Pass }}"
+        force_basic_auth: yes
+        status_code: 200
       
