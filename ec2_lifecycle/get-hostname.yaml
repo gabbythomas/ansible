@@ -6,6 +6,7 @@
   vars:
     Uname: "{{ lookup('env', 'JENKINS_USER') }}"
     Pass: "{{ lookup('env', 'JENKINS_PASS') }}"
+    TokenName: "{{ lookup('env', 'JENKINS_API_TOKEN') }}"
   tasks:
     - name: Install web container dependencies
       apt:
