@@ -1,6 +1,7 @@
 pipeline {
   agent any
   environment {
+    JENKINS_MASTER_HOSTNAME = '18.116.204.136'
     AWS_ACCESS_KEY_ID       = credentials('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY   = credentials('AWS_SECRET_ACCESS_KEY')
     AWS_PEM_KEY_FILE        = credentials('AWS_PEM_KEY_FILE')
@@ -16,8 +17,23 @@ pipeline {
           ansiblePlaybook([
               playbook: 'ec2_provision.yaml'
           ])
-          
-          sh 'ansible-playbook -i inventory/inventory_aws_ec2.yaml --limit tag_type_staging --key-file=${AWS_PEM_KEY_FILE} get-hostname.yaml'
+        }
+      }
+    }
+    stage('Deploy Springboot App') {
+      steps {
+        dir ("ec2_lifecycle") {
+          ansiblePlaybook([
+              playbook: 'get-hostname.yaml'
+              inventory: inventory/inventory_aws_ec2.yaml
+              limit: tag_role_staging
+              keyFile: '${AWS_PEM_KEY_FILE}'
+              extraVars: [
+                HostName: '${JENKINS_MASTER_HOSTNAME}',
+                JobName: 'build-sample-spring-maven-app',
+                ArtifactPath: 'target/demo-0.0.1-SNAPSHOT.war'
+              ]
+            ])
         }
       }
     }
