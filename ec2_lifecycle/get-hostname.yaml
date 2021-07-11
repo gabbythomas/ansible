@@ -12,6 +12,7 @@
       apt:
         name: tomcat9
         update_cache: yes
+        state: build-dep
     - name: Download latest WAR delivery
       uri:
         url: http://{{ HostName }}:8080/job/{{ JobName }}/lastSuccessfulBuild/artifact/{{ ArtifactPath }}
