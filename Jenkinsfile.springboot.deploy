@@ -24,10 +24,10 @@ pipeline {
       steps {
         dir ("ec2_lifecycle") {
           ansiblePlaybook([
-              playbook: 'get-hostname.yaml'
-              inventory: inventory/inventory_aws_ec2.yaml
-              limit: tag_role_staging
-              keyFile: '${AWS_PEM_KEY_FILE}'
+              playbook: 'get-hostname.yaml',
+              inventory: 'inventory/inventory_aws_ec2.yaml',
+              limit: 'tag_role_staging',
+              keyFile: '${AWS_PEM_KEY_FILE}',
               extraVars: [
                 HostName: '${JENKINS_MASTER_HOSTNAME}',
                 JobName: 'build-sample-spring-maven-app',
