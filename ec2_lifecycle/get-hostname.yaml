@@ -29,7 +29,7 @@
         status_code: 200
         notify:
         - restart "{{ TomcatServer }}"
-    handlers:
+  handlers:
     - name: Restart "{{ TomcatServer }}"
       service:
         name: "{{ TomcatServer }}"
